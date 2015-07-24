@@ -1,1 +1,7 @@
-git push -u origin `git rev-parse --abbrev-ref HEAD` && git pull-request | xargs open
+#!/bin/sh
+title=$1
+
+git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
+url=$(hub pull-request -m "$title")
+
+open "$url"
