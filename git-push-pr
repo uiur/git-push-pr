@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 title=$1
 
 git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
+
+if [[ -z $title ]]; then
+  title=$(git log -1 --pretty=%B | head -1)
+fi
+
 url=$(hub pull-request -m "$title")
 
 open "$url"
